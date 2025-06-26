@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { 
   Users, 
@@ -219,19 +220,38 @@ export default function Home() {
 
         {/* Hero Section */}
         <section className="bg-gray-50 py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-8xl md:text-7xl font-bold text-gray-900 mb-8">
-              Cuida tu bienestar emocional,<br />
-              MENTALIA es tu apoyo<br />
-              las 24 horas
-            </h2>
-            <p className="text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
-              Conversa, reflexiona y encuentra equilibrio sin preocupaciones con tu asistente de bienestar emocional
-            </p>
-            <button className="bg-blue-600 text-white px-10 py-4 rounded-md text-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 mx-auto" onClick={handleEmpezarWhatsApp}>
-              <Smartphone className="w-6 h-6" />
-              <span>Empezar en WhatsApp</span>
-            </button>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left content */}
+              <div className="text-center lg:text-left">
+                <h2 className="text-6xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+                  Cuida tu bienestar emocional,<br />
+                  MENTALIA es tu apoyo<br />
+                  las 24 horas
+                </h2>
+                <p className="text-2xl text-gray-600 mb-10 max-w-2xl">
+                  Conversa, reflexiona y encuentra equilibrio sin preocupaciones con tu asistente de bienestar emocional
+                </p>
+                <button className="bg-blue-600 text-white px-10 py-4 rounded-md text-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 mx-auto lg:mx-0" onClick={handleEmpezarWhatsApp}>
+                  <Smartphone className="w-6 h-6" />
+                  <span>Empezar en WhatsApp</span>
+                </button>
+              </div>
+              
+              {/* Right image */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="relative">
+                  <Image 
+                    src="/image1.png" 
+                    alt="MENTALIA - Bienestar emocional" 
+                    width={512}
+                    height={512}
+                    className="w-full max-w-lg h-auto rounded-2xl shadow-2xl"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
