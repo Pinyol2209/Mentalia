@@ -2,14 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { 
-  ArrowLeft,
-  Send,
-  Mail,
-  Smartphone,
-  Clock,
-  MessageCircle
-} from "lucide-react";
+import { ArrowLeft, Mail, Smartphone, Clock, Send, MessageCircle } from "lucide-react";
+import Footer from '@/components/Footer'
 
 export default function ContactoPage() {
   const [formData, setFormData] = useState({
@@ -329,50 +323,7 @@ Mensaje: ${formData.message}`;
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-bold mb-4">MENTALIA</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Tu mente en buenas manos, 24 horas al día.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Producto</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/servicios" className="hover:text-white">Servicios</Link></li>
-                <li><Link href="/pricing" className="hover:text-white">Precios</Link></li>
-                <li><Link href="/como-funciona" className="hover:text-white">¿Cómo funciona?</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Soporte</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link href="/como-funciona" className="hover:text-white">Centro de Ayuda</Link></li>
-                <li><Link href="/contacto" className="hover:text-white">Contacto</Link></li>
-                <li><a href="#" className="hover:text-white">Estado del Servicio</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white">Privacidad</a></li>
-                <li><a href="#" className="hover:text-white">Términos</a></li>
-                <li><a href="#" className="hover:text-white">Cookies</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400 text-sm">&copy; 2024 MENTALIA. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 } 

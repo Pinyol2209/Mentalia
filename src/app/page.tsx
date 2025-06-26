@@ -1,21 +1,22 @@
-'use client';
+'use client'
 
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link'
+import { useState } from 'react'
 import { 
-  Brain, 
-  Heart, 
-  Target, 
-  Zap, 
   Users, 
-  Music, 
-  Lightbulb, 
-  Headphones,
-  FileText,
+  Heart, 
   Gift,
   Sparkles,
-  Smartphone
+  Smartphone,
+  Brain,
+  Target,
+  Zap,
+  Music,
+  Lightbulb,
+  FileText,
+  Headphones
 } from "lucide-react";
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
@@ -575,50 +576,7 @@ export default function Home() {
       </main>
 
       {/* Footer - Sticky bottom */}
-      <footer className="bg-blue-700 text-white py-20 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            {/* Company Info */}
-            <div>
-              <h4 className="text-3xl font-bold mb-6">MENTALIA</h4>
-              <p className="text-blue-200 mb-8 text-lg">
-                Tu mente en buenas manos.<br />
-                Apoyo psico-emocional las 24 horas del día<br />
-                para quienes lo necesiten.
-              </p>
-              <button className="border border-white text-white px-6 py-3 rounded-md text-lg hover:bg-white hover:text-blue-700 transition-colors" onClick={handleEmpezarWhatsApp}>
-                Contáctanos
-              </button>
-            </div>
-
-            {/* Office 1 */}
-            <div>
-              <h5 className="text-xl font-semibold mb-6">Oficina Digital</h5>
-              <address className="text-blue-200 not-italic text-base">
-                Disponible las 24/7<br />
-                A través de WhatsApp<br />
-                Cobertura en toda España<br />
-                Zona Horaria: CET/CEST<br />
-                <br />
-                <span className="text-lg font-medium">+34 600 000 000</span>
-              </address>
-            </div>
-
-            {/* Office 2 */}
-            <div>
-              <h5 className="text-xl font-semibold mb-6">Oficina LATAM</h5>
-              <address className="text-blue-200 not-italic text-base">
-                Av Office Ramo Digital 1<br />
-                St. Satelital Big Atl. or 01/8/WP<br />
-                Buenos Aires, Argentina<br />
-                Time EST<br />
-                <br />
-                <span className="text-lg font-medium">+57 320 123 4567</span>
-              </address>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
