@@ -257,15 +257,15 @@ export default function Home() {
 
         {/* Image Section */}
         <section className="py-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative h-96 rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-80"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <h3 className="text-4xl font-bold mb-6">Tu mente, en buenas manos 24/7</h3>
-                  <p className="text-xl">Apoyo emocional inmediato por WhatsApp</p>
-                </div>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative h-96 rounded-2xl overflow-hidden">
+              <Image 
+                src="/imagen2.jpg" 
+                alt="MENTALIA - Bienestar emocional 24/7" 
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+              />
             </div>
           </div>
         </section>
