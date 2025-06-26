@@ -10,19 +10,19 @@ export interface User {
   id: string
   created_at: string
   phone_number: string
-  first_name?: string
-  last_name?: string
-  email?: string
+  first_name?: string | null
+  last_name?: string | null
+  email?: string | null
   plan_type: 'gratis' | 'personal' | 'plus' | 'familiar' | 'empresas'
   subscription_status: 'active' | 'inactive' | 'trial' | 'cancelled'
-  subscription_start_date?: string
-  subscription_end_date?: string
+  subscription_start_date?: string | null
+  subscription_end_date?: string | null
   ai_personality: 'empático' | 'filosófico' | 'coach' | 'espiritual'
   timezone: string
   language: string
   onboarding_completed: boolean
-  last_active_at?: string
-  family_group_id?: string
+  last_active_at?: string | null
+  family_group_id?: string | null
   monthly_conversations: number
   total_conversations: number
   conversation_reset_date: string
@@ -35,11 +35,14 @@ export interface Conversation {
   user_id: string
   message_type: 'user' | 'ai' | 'system'
   content: string
-  emotion_detected?: string
-  category?: string
-  exercise_triggered?: string
-  tokens_used?: number
+  emotion_detected?: string | null
+  emotion_confidence?: number | null
+  category?: string | null
+  exercise_triggered?: string | null
+  tokens_used?: number | null
+  response_time_ms?: number | null
   session_id: string
+  metadata?: string | null
 }
 
 export interface EmotionalTracking {
@@ -48,8 +51,11 @@ export interface EmotionalTracking {
   user_id: string
   emotion: string
   intensity: number // 1-10 scale
-  trigger?: string
-  context?: string
+  trigger?: string | null
+  context?: string | null
+  source?: string
+  trigger_event?: string | null
+  date: string
   week_number: number
   month_number: number
   year: number
@@ -64,9 +70,11 @@ export interface Exercise {
   duration_minutes: number
   difficulty_level: 'básico' | 'intermedio' | 'avanzado'
   content: string
-  audio_url?: string
+  audio_url?: string | null
   is_premium: boolean
-  price?: number
+  is_active: boolean
+  popularity_score: number
+  price?: number | null
 }
 
 export interface UserExercise {
@@ -74,10 +82,12 @@ export interface UserExercise {
   created_at: string
   user_id: string
   exercise_id: string
-  completed_at?: string
-  rating?: number
-  notes?: string
+  started_at?: string | null
+  completed_at?: string | null
+  rating?: number | null
+  notes?: string | null
   progress_percentage: number
+  session_data?: string | null
 }
 
 export interface Report {
@@ -91,7 +101,7 @@ export interface Report {
   exercises_completed: number
   conversations_count: number
   mood_trends: Record<string, unknown> // JSON object
-  pdf_url?: string
+  pdf_url?: string | null
   generated_at: string
 }
 
@@ -110,8 +120,8 @@ export interface DailyMotivation {
   user_id: string
   date: string
   message: string
-  delivered_at?: string
-  opened_at?: string
+  delivered_at?: string | null
+  opened_at?: string | null
 }
 
 export interface ServiceCategory {
@@ -131,5 +141,5 @@ export interface AIPersonality {
   tone: string
   response_style: string
   is_premium: boolean
-  price?: number
+  price?: number | null
 } 

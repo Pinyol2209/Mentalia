@@ -196,10 +196,7 @@ export class ExerciseService {
     try {
       let query = supabase
         .from('user_exercises')
-        .select(`
-          *,
-          exercise:exercises(*)
-        `)
+        .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
         .limit(limit)
@@ -212,14 +209,32 @@ export class ExerciseService {
         }
       }
 
-      const { data, error } = await query
+      const { data: userExercises, error } = await query
 
       if (error) {
         console.error('Error getting user exercises:', error)
         return []
       }
 
-      return data
+      if (!userExercises || userExercises.length === 0) {
+        return []
+      }
+
+      // Obtener datos de ejercicios
+      const exerciseIds = [...new Set(userExercises.map(ue => ue.exercise_id))]
+      const { data: exercises } = await supabase
+        .from('exercises')
+        .select('*')
+        .in('id', exerciseIds)
+
+      const exerciseMap = new Map(exercises?.map(ex => [ex.id, ex]) || [])
+
+      // Combinar datos
+      return userExercises.map(userExercise => ({
+        ...userExercise,
+        exercise: exerciseMap.get(userExercise.exercise_id)!
+      })).filter(item => item.exercise) // Filtrar elementos sin ejercicio
+
     } catch (error) {
       console.error('Error in getUserExercises:', error)
       return []

@@ -240,7 +240,7 @@ export class UserService {
         totalConversations: user.total_conversations,
         monthlyConversations: user.monthly_conversations,
         exercisesCompleted: exercisesCount || 0,
-        lastActive: user.last_active_at,
+        lastActive: user.last_active_at || null,
         planType: user.plan_type
       }
     } catch (error) {
