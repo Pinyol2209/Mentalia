@@ -6,17 +6,13 @@ import {
   Search,
   Settings,
   Headphones,
-  Globe,
   Package,
   HelpCircle,
   ChevronDown,
   ChevronRight,
   ArrowLeft,
-  Brain,
   Heart,
   MessageCircle,
-  Clock,
-  Shield,
   Smartphone
 } from "lucide-react";
 

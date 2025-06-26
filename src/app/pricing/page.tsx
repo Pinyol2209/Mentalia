@@ -2,28 +2,10 @@
 
 import Link from "next/link";
 import { 
-  Check, 
-  X, 
-  Zap, 
-  Heart, 
-  Brain, 
-  Users, 
-  Building2, 
-  Sparkles, 
-  Headphones, 
-  Clock, 
-  FileText, 
-  BarChart3, 
-  Shield, 
-  Smartphone, 
-  Globe, 
-  CreditCard, 
   ArrowLeft,
+  Check,
   Star,
-  Gift,
-  Settings,
-  Music,
-  Lightbulb
+  MessageCircle
 } from "lucide-react";
 
 export default function PricingPage() {
@@ -119,16 +101,16 @@ export default function PricingPage() {
                     <span className="text-gray-700 text-lg">Cuenta personal única</span>
                   </li>
                   <li className="flex items-start">
-                    <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-400 text-lg">Sin ejercicios guiados</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Sin ejercicios guiados</span>
                   </li>
                   <li className="flex items-start">
-                    <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-400 text-lg">Sin seguimiento emocional</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Sin seguimiento emocional</span>
                   </li>
                   <li className="flex items-start">
-                    <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-400 text-lg">Sin informes</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Sin informes</span>
                   </li>
                 </ul>
               </div>
@@ -179,12 +161,12 @@ export default function PricingPage() {
                     <span className="text-gray-700 text-lg">100% vía WhatsApp</span>
                   </li>
                   <li className="flex items-start">
-                    <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-400 text-lg">Sin historial emocional</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Sin historial emocional</span>
                   </li>
                   <li className="flex items-start">
-                    <X className="w-5 h-5 text-gray-300 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-400 text-lg">Sin informes mensuales</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Sin informes mensuales</span>
                   </li>
                 </ul>
               </div>
@@ -341,7 +323,7 @@ export default function PricingPage() {
             
             <div className="bg-white rounded-xl p-6 text-center border border-gray-200">
               <div className="w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Lightbulb className="w-6 h-6 text-purple-600" />
+                <MessageCircle className="w-6 h-6 text-purple-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Modo Filosófico</h3>
               <p className="text-gray-600 text-lg mb-4">Perspectiva más profunda y reflexiva para tus inquietudes</p>
@@ -351,7 +333,7 @@ export default function PricingPage() {
             
             <div className="bg-white rounded-xl p-6 text-center border border-gray-200">
               <div className="w-12 h-12 bg-amber-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-amber-600" />
+                <MessageCircle className="w-6 h-6 text-amber-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Modo Espiritual</h3>
               <p className="text-gray-600 text-lg mb-4">Enfoque espiritual y trascendente para tu crecimiento personal</p>
@@ -369,19 +351,19 @@ export default function PricingPage() {
           <div className="flex justify-center items-center space-x-8 mb-12">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <CreditCard className="w-5 h-5 text-white" />
+                <MessageCircle className="w-5 h-5 text-white" />
               </div>
               <span className="text-gray-700 font-medium">Stripe</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-                <Globe className="w-5 h-5 text-white" />
+                <MessageCircle className="w-5 h-5 text-white" />
               </div>
               <span className="text-gray-700 font-medium">Gumroad</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-blue-800 rounded-lg flex items-center justify-center">
-                <CreditCard className="w-5 h-5 text-white" />
+                <MessageCircle className="w-5 h-5 text-white" />
               </div>
               <span className="text-gray-700 font-medium">PayPal</span>
             </div>
@@ -389,7 +371,7 @@ export default function PricingPage() {
           
           <div className="bg-blue-50 rounded-xl p-6 text-left max-w-2xl mx-auto">
             <div className="flex items-start space-x-3">
-              <Lightbulb className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+              <MessageCircle className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Nota Psicológica</h3>
                 <p className="text-gray-700 text-lg">
@@ -414,7 +396,7 @@ export default function PricingPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2">
-              <Smartphone className="w-5 h-5" />
+              <MessageCircle className="w-5 h-5" />
               <span>Empezar Gratis en WhatsApp</span>
             </button>
             <button className="border border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">

@@ -8,7 +8,6 @@ import {
   Mail,
   Smartphone,
   Clock,
-  MapPin,
   MessageCircle
 } from "lucide-react";
 
@@ -39,7 +38,7 @@ export default function ContactoPage() {
     // Simulate form submission
     try {
       // Here you would typically send the data to your backend
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       // For now, we'll open WhatsApp with the message
       const whatsappMessage = `Hola, me gustaría contactar con MENTALIA.
@@ -59,8 +58,10 @@ Mensaje: ${formData.message}`;
         phone: '',
         message: ''
       });
-    } catch (error) {
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    } catch {
       setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
       setIsSubmitting(false);
     }
