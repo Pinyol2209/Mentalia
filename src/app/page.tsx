@@ -18,10 +18,13 @@ import {
   Check
 } from "lucide-react";
 import Footer from '@/components/Footer'
+import { getStripe } from '../../lib/stripe'
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [showAllServices, setShowAllServices] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('yearly');
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   // Service categories data
   const categories = ['Todos', 'Ansiedad', 'Estrés', 'Relaciones', 'Autoestima', 'Meditación', 'Ejercicios', 'Motivación'];
@@ -169,7 +172,7 @@ export default function Home() {
   };
 
   const handleEmpezarGratis = () => {
-    // Redirect to WhatsApp or show modal
+    // Redirect to WhatsApp for free plan
     window.open('https://wa.me/34600000000?text=Hola%2C%20me%20interesa%20empezar%20con%20el%20plan%20gratuito%20de%20MENTALIA', '_blank');
   };
 
@@ -177,17 +180,53 @@ export default function Home() {
     window.open('https://wa.me/34600000000?text=Hola%2C%20quiero%20empezar%20con%20MENTALIA', '_blank');
   };
 
-  const handlePlanSelection = (planType: string) => {
-    const messages = {
-      'gratis': 'Hola, me interesa el Plan Gratuito de MENTALIA',
-      'personal': 'Hola, me interesa el Plan Personal de MENTALIA (4,99€/mes)',
-      'plus': 'Hola, me interesa el Plan Plus de MENTALIA (9,99€/mes)',
-      'familiar': 'Hola, me interesa el Plan Familiar de MENTALIA (14,99€/mes)',
-      'empresas': 'Hola, me interesa el Plan Empresas de MENTALIA'
+  // Función para manejar el pago con Stripe
+  const handleStripeCheckout = async (planType: string) => {
+    if (planType === 'gratis') {
+      handleEmpezarGratis();
+      return;
+    }
+
+    setLoadingPlan(planType);
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planType,
+          billingPeriod,
+        }),
+      });
+
+      const { sessionId } = await response.json();
+
+      if (sessionId) {
+        const stripe = await getStripe();
+        await stripe?.redirectToCheckout({ sessionId });
+      } else {
+        throw new Error('No se pudo crear la sesión de pago');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Hubo un error al procesar el pago. Por favor, inténtalo de nuevo.');
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
+
+  // Precios según el período de facturación
+  const getPricing = (planType: string) => {
+    const prices = {
+      personal: { monthly: 4.99, yearly: 59.88 },
+      plus: { monthly: 9.99, yearly: 119.88 },
+      familiar: { monthly: 14.99, yearly: 179.88 },
+      empresas: { monthly: 49.00, yearly: 588.00 },
     };
-    
-    const message = messages[planType as keyof typeof messages] || 'Hola, me interesa MENTALIA';
-    window.open(`https://wa.me/34600000000?text=${encodeURIComponent(message)}`, '_blank');
+
+    return prices[planType as keyof typeof prices]?.[billingPeriod] || 0;
   };
 
   return (
@@ -336,15 +375,31 @@ export default function Home() {
 
               {/* Toggle Monthly/Annual */}
               <div className="inline-flex items-center bg-gray-100 rounded-lg p-1 mb-16">
-                <button className="px-6 py-2 text-lg font-medium text-gray-700 rounded-md">
+                <button 
+                  className={`px-6 py-2 text-lg font-medium rounded-md transition-colors ${
+                    billingPeriod === 'monthly' 
+                      ? 'text-white bg-blue-600' 
+                      : 'text-gray-700'
+                  }`}
+                  onClick={() => setBillingPeriod('monthly')}
+                >
                   Mensual
                 </button>
-                <button className="px-6 py-2 text-lg font-medium text-white bg-blue-600 rounded-md">
+                <button 
+                  className={`px-6 py-2 text-lg font-medium rounded-md transition-colors ${
+                    billingPeriod === 'yearly' 
+                      ? 'text-white bg-blue-600' 
+                      : 'text-gray-700'
+                  }`}
+                  onClick={() => setBillingPeriod('yearly')}
+                >
                   Anual
                 </button>
-                <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                  Ahorra 36%
-                </span>
+                {billingPeriod === 'yearly' && (
+                  <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    Ahorra 36%
+                  </span>
+                )}
               </div>
             </div>
 
@@ -412,9 +467,22 @@ export default function Home() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">Personal</h3>
                   <div className="flex items-baseline mb-4">
-                    <span className="text-5xl font-bold text-gray-900">4,99€</span>
+                    <span className="text-5xl font-bold text-gray-900">
+                      €{getPricing('personal')}
+                    </span>
+                    {billingPeriod === 'yearly' && (
+                      <span className="text-gray-600 ml-2">/año</span>
+                    )}
+                    {billingPeriod === 'monthly' && (
+                      <span className="text-gray-600 ml-2">/mes</span>
+                    )}
                   </div>
-                  <p className="text-gray-600 text-lg">Por usuario/mes, facturado anualmente</p>
+                  <p className="text-gray-600 text-lg">
+                    {billingPeriod === 'yearly' 
+                      ? 'Equivale a €4.99/mes, facturado anualmente' 
+                      : 'Por usuario/mes, facturado mensualmente'
+                    }
+                  </p>
                 </div>
                 
                 <div className="mb-8">
@@ -452,8 +520,19 @@ export default function Home() {
                   </ul>
                 </div>
                 
-                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors" onClick={() => handlePlanSelection('personal')}>
-                  Empezar con Personal
+                <button 
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center" 
+                  onClick={() => handleStripeCheckout('personal')}
+                  disabled={loadingPlan === 'personal'}
+                >
+                  {loadingPlan === 'personal' ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Procesando...
+                    </>
+                  ) : (
+                    'Empezar con Personal'
+                  )}
                 </button>
               </div>
 
@@ -462,9 +541,22 @@ export default function Home() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold text-white mb-2">Plus</h3>
                   <div className="flex items-baseline mb-4">
-                    <span className="text-5xl font-bold text-white">9,99€</span>
+                    <span className="text-5xl font-bold text-white">
+                      €{getPricing('plus')}
+                    </span>
+                    {billingPeriod === 'yearly' && (
+                      <span className="text-gray-300 ml-2">/año</span>
+                    )}
+                    {billingPeriod === 'monthly' && (
+                      <span className="text-gray-300 ml-2">/mes</span>
+                    )}
                   </div>
-                  <p className="text-gray-300 text-lg">Por usuario/mes, facturado anualmente</p>
+                  <p className="text-gray-300 text-lg">
+                    {billingPeriod === 'yearly' 
+                      ? 'Equivale a €9.99/mes, facturado anualmente' 
+                      : 'Por usuario/mes, facturado mensualmente'
+                    }
+                  </p>
                 </div>
                 
                 <div className="mb-8">
@@ -502,8 +594,19 @@ export default function Home() {
                   </ul>
                 </div>
                 
-                <button className="w-full bg-white text-gray-900 py-3 px-6 rounded-lg font-medium hover:bg-gray-100 transition-colors" onClick={() => handlePlanSelection('plus')}>
-                  Empezar con Plus
+                <button 
+                  className="w-full bg-white text-gray-900 py-3 px-6 rounded-lg font-medium hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center" 
+                  onClick={() => handleStripeCheckout('plus')}
+                  disabled={loadingPlan === 'plus'}
+                >
+                  {loadingPlan === 'plus' ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900 mr-2"></div>
+                      Procesando...
+                    </>
+                  ) : (
+                    'Empezar con Plus'
+                  )}
                 </button>
               </div>
             </div>
@@ -515,10 +618,22 @@ export default function Home() {
                 <div className="mb-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">Familiar</h3>
                   <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-bold text-purple-600">14,99€</span>
-                    <span className="text-gray-600 ml-2">/mes</span>
+                    <span className="text-4xl font-bold text-purple-600">
+                      €{getPricing('familiar')}
+                    </span>
+                    {billingPeriod === 'yearly' && (
+                      <span className="text-gray-600 ml-2">/año</span>
+                    )}
+                    {billingPeriod === 'monthly' && (
+                      <span className="text-gray-600 ml-2">/mes</span>
+                    )}
                   </div>
-                  <p className="text-gray-600 text-lg">Hasta 3 miembros de la familia</p>
+                  <p className="text-gray-600 text-lg">
+                    {billingPeriod === 'yearly' 
+                      ? 'Hasta 3 miembros, equivale a €14.99/mes' 
+                      : 'Hasta 3 miembros de la familia'
+                    }
+                  </p>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -540,8 +655,19 @@ export default function Home() {
                   </li>
                 </ul>
                 
-                <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors" onClick={() => handlePlanSelection('familiar')}>
-                  Elegir Familiar
+                <button 
+                  className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center" 
+                  onClick={() => handleStripeCheckout('familiar')}
+                  disabled={loadingPlan === 'familiar'}
+                >
+                  {loadingPlan === 'familiar' ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Procesando...
+                    </>
+                  ) : (
+                    'Elegir Familiar'
+                  )}
                 </button>
               </div>
 
@@ -550,10 +676,22 @@ export default function Home() {
                 <div className="mb-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">Empresas</h3>
                   <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-bold text-orange-600">49€+</span>
-                    <span className="text-gray-600 ml-2">/mes</span>
+                    <span className="text-4xl font-bold text-orange-600">
+                      €{getPricing('empresas')}
+                    </span>
+                    {billingPeriod === 'yearly' && (
+                      <span className="text-gray-600 ml-2">/año</span>
+                    )}
+                    {billingPeriod === 'monthly' && (
+                      <span className="text-gray-600 ml-2">/mes</span>
+                    )}
                   </div>
-                  <p className="text-gray-600 text-lg">Para equipos y organizaciones</p>
+                  <p className="text-gray-600 text-lg">
+                    {billingPeriod === 'yearly' 
+                      ? 'Para equipos y organizaciones, facturado anualmente' 
+                      : 'Para equipos y organizaciones'
+                    }
+                  </p>
                 </div>
                 
                 <ul className="space-y-3 mb-8">
@@ -575,8 +713,19 @@ export default function Home() {
                   </li>
                 </ul>
                 
-                <button className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-700 transition-colors" onClick={() => handlePlanSelection('empresas')}>
-                  Contactar Ventas
+                <button 
+                  className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center" 
+                  onClick={() => handleStripeCheckout('empresas')}
+                  disabled={loadingPlan === 'empresas'}
+                >
+                  {loadingPlan === 'empresas' ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Procesando...
+                    </>
+                  ) : (
+                    'Contactar Ventas'
+                  )}
                 </button>
               </div>
             </div>
