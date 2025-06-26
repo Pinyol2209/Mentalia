@@ -251,7 +251,7 @@ export class ExerciseService {
       const difficultyCount = new Map<string, number>()
 
       userHistory.forEach(item => {
-        const exercise = item.exercise as Exercise
+        const exercise = item.exercise as { category: string; difficulty_level: string }
         categoryCount.set(
           exercise.category, 
           (categoryCount.get(exercise.category) || 0) + 1
