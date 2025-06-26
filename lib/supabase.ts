@@ -15,6 +15,7 @@ export interface User {
   email?: string
   plan_type: 'gratis' | 'personal' | 'plus' | 'familiar' | 'empresas'
   subscription_status: 'active' | 'inactive' | 'trial' | 'cancelled'
+  subscription_start_date?: string
   subscription_end_date?: string
   ai_personality: 'empático' | 'filosófico' | 'coach' | 'espiritual'
   timezone: string
@@ -22,6 +23,10 @@ export interface User {
   onboarding_completed: boolean
   last_active_at?: string
   family_group_id?: string
+  monthly_conversations: number
+  total_conversations: number
+  conversation_reset_date: string
+  is_active: boolean
 }
 
 export interface Conversation {

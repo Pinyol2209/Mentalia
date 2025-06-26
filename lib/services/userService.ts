@@ -99,15 +99,26 @@ export class UserService {
   // Incrementar contador de conversaciones
   static async incrementConversationCount(userId: string): Promise<boolean> {
     try {
-      const { error } = await supabase
+      // Obtener valores actuales
+      const { data: user } = await supabase
         .from('users')
-        .update({
-          monthly_conversations: supabase.sql`monthly_conversations + 1`,
-          total_conversations: supabase.sql`total_conversations + 1`
-        })
+        .select('monthly_conversations, total_conversations')
         .eq('id', userId)
+        .single()
 
-      return !error
+      if (user) {
+        const { error } = await supabase
+          .from('users')
+          .update({
+            monthly_conversations: (user.monthly_conversations || 0) + 1,
+            total_conversations: (user.total_conversations || 0) + 1
+          })
+          .eq('id', userId)
+
+        return !error
+      }
+
+      return false
     } catch (error) {
       console.error('Error incrementing conversation count:', error)
       return false
