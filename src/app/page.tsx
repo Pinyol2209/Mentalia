@@ -15,7 +15,7 @@ import {
   Music,
   Lightbulb,
   FileText,
-  Headphones
+  Check
 } from "lucide-react";
 import Footer from '@/components/Footer'
 
@@ -330,229 +330,308 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h3 className="text-5xl font-bold text-gray-900 mb-6">Planes y Precios</h3>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Barrera de entrada baja para que pruebes nuestro apoyo emocional.<br />
-                Escoge el plan que mejor se adapte a tus necesidades.
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
+                Recibe apoyo emocional ilimitado cuando pagas anualmente, y ahorra en tu plan.
               </p>
+
+              {/* Toggle Monthly/Annual */}
+              <div className="inline-flex items-center bg-gray-100 rounded-lg p-1 mb-16">
+                <button className="px-6 py-2 text-lg font-medium text-gray-700 rounded-md">
+                  Mensual
+                </button>
+                <button className="px-6 py-2 text-lg font-medium text-white bg-blue-600 rounded-md">
+                  Anual
+                </button>
+                <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  Ahorra 36%
+                </span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            {/* Main Pricing Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              
               {/* Plan Gratis */}
-              <div className="bg-gray-50 rounded-xl p-8 border-2 border-gray-200 hover:border-gray-300 transition-colors">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Gift className="w-8 h-8 text-gray-600" />
+              <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Gratis</h3>
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-5xl font-bold text-gray-900">0€</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Plan Gratis</h4>
-                  <div className="text-3xl font-bold text-gray-600 mb-2">0€</div>
-                  <p className="text-sm text-gray-500">Para probar</p>
+                  <p className="text-gray-600 text-lg">Por usuario/mes, facturado anualmente</p>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">3 consultas/mes</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Respuestas básicas</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Horario 9h-20h</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-500 mr-2">✗</span>
-                    <span className="text-sm text-gray-400">Sin ejercicios guiados</span>
-                  </li>
-                </ul>
-                <button className="w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors" onClick={handleEmpezarGratis}>
-                  Empezar Gratis
+                
+                <div className="mb-8">
+                  <p className="text-gray-900 font-medium mb-6 text-lg">Para probar nuestro servicio</p>
+                  
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">3 consultas por mes</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Respuestas básicas de la IA</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Horario limitado 9h-20h</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Cuenta personal única</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Sin ejercicios guiados</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Sin seguimiento emocional</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Sin informes</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <button className="w-full bg-white border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-50 transition-colors" onClick={handleEmpezarGratis}>
+                  Empezar gratis
                 </button>
               </div>
 
-              {/* Plan Personal */}
-              <div className="bg-white rounded-xl p-8 border-2 border-blue-200 hover:border-blue-300 transition-colors shadow-lg">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Heart className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Plan Personal</h4>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">4,99€</div>
-                  <p className="text-sm text-gray-500">por mes</p>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Soporte 24/7</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Consultas ilimitadas</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Ejercicios guiados</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Personalidad configurable</span>
-                  </li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors" onClick={() => handlePlanSelection('personal')}>
-                  Elegir Personal
-                </button>
-                <p className="text-xs text-center mt-2 text-gray-500">Menos que un café semanal</p>
-              </div>
-
-              {/* Plan Plus - POPULAR */}
-              <div className="bg-gradient-to-b from-blue-50 to-white rounded-xl p-8 border-2 border-blue-500 hover:border-blue-600 transition-colors shadow-xl relative">
+              {/* Plan Personal - POPULAR */}
+              <div className="bg-white border-2 border-blue-600 rounded-2xl p-8 relative shadow-lg">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">MÁS POPULAR</span>
+                  <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    Más Popular
+                  </span>
                 </div>
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Zap className="w-8 h-8 text-white" />
+                
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Personal</h3>
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-5xl font-bold text-gray-900">4,99€</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Plan Plus</h4>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">9,99€</div>
-                  <p className="text-sm text-gray-500">por mes</p>
+                  <p className="text-gray-600 text-lg">Por usuario/mes, facturado anualmente</p>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Todo del Plan Personal</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Historial emocional</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Revisión semanal</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Audio motivacional diario</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Informe mensual PDF</span>
-                  </li>
-                </ul>
-                <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors" onClick={() => handlePlanSelection('plus')}>
-                  Elegir Plus
+                
+                <div className="mb-8">
+                  <p className="text-gray-900 font-medium mb-6 text-lg">Ideal para uso personal</p>
+                  
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Consultas ilimitadas 24/7</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Ejercicios de respiración guiados</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Personalidad de IA configurable</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Journaling emocional</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">100% vía WhatsApp</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Sin historial emocional</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 text-lg">Sin informes mensuales</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors" onClick={() => handlePlanSelection('personal')}>
+                  Empezar con Personal
                 </button>
               </div>
 
-              {/* Plan Familiar */}
-              <div className="bg-white rounded-xl p-8 border-2 border-purple-200 hover:border-purple-300 transition-colors shadow-lg">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="w-8 h-8 text-purple-600" />
+              {/* Plan Plus */}
+              <div className="bg-gray-900 text-white rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold text-white mb-2">Plus</h3>
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-5xl font-bold text-white">9,99€</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Plan Familiar</h4>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">14,99€</div>
-                  <p className="text-sm text-gray-500">por mes</p>
+                  <p className="text-gray-300 text-lg">Por usuario/mes, facturado anualmente</p>
                 </div>
+                
+                <div className="mb-8">
+                  <p className="text-white font-medium mb-6 text-lg">Para seguimiento completo</p>
+                  
+                  <ul className="space-y-4">
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Todo lo del plan Personal</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Historial emocional completo</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Revisión semanal de progreso</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Audio motivacional diario</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Informe mensual PDF detallado</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">30 técnicas de relajación</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-300 text-lg">Soporte prioritario</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <button className="w-full bg-white text-gray-900 py-3 px-6 rounded-lg font-medium hover:bg-gray-100 transition-colors" onClick={() => handlePlanSelection('plus')}>
+                  Empezar con Plus
+                </button>
+              </div>
+            </div>
+
+            {/* Planes adicionales */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              {/* Plan Familiar */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Familiar</h3>
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-4xl font-bold text-purple-600">14,99€</span>
+                    <span className="text-gray-600 ml-2">/mes</span>
+                  </div>
+                  <p className="text-gray-600 text-lg">Hasta 3 miembros de la familia</p>
+                </div>
+                
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Hasta 3 miembros</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Todo del Plan Plus para cada miembro</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">IA separada para cada uno</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">IA personalizada por persona</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Todo del Plan Plus</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Privacidad total garantizada</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Ideal parejas/familias</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Ideal para parejas y adolescentes</span>
                   </li>
                 </ul>
-                <button className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors" onClick={() => handlePlanSelection('familiar')}>
+                
+                <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors" onClick={() => handlePlanSelection('familiar')}>
                   Elegir Familiar
                 </button>
               </div>
 
               {/* Plan Empresas */}
-              <div className="bg-white rounded-xl p-8 border-2 border-orange-200 hover:border-orange-300 transition-colors shadow-lg">
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Headphones className="w-8 h-8 text-orange-600" />
+              <div className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">Empresas</h3>
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-4xl font-bold text-orange-600">49€+</span>
+                    <span className="text-gray-600 ml-2">/mes</span>
                   </div>
-                  <h4 className="text-2xl font-bold text-gray-900 mb-2">Plan Empresas</h4>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">49€+</div>
-                  <p className="text-sm text-gray-500">por mes</p>
+                  <p className="text-gray-600 text-lg">Para equipos y organizaciones</p>
                 </div>
+                
                 <ul className="space-y-3 mb-8">
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Equipos completos</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Equipos completos sin límite</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Dashboard admin</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Dashboard administrativo</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Salud mental empresarial</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Salud mental empresarial</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-sm">Soporte dedicado</span>
+                    <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg">Soporte dedicado 24/7</span>
                   </li>
                 </ul>
-                <button className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition-colors" onClick={() => handlePlanSelection('empresas')}>
-                  Contactar
+                
+                <button className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-700 transition-colors" onClick={() => handlePlanSelection('empresas')}>
+                  Contactar Ventas
                 </button>
               </div>
             </div>
 
-            {/* Extras */}
-            <div className="mt-16 text-center">
-              <h4 className="text-2xl font-bold text-gray-900 mb-8">Extras Disponibles</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div className="bg-gray-50 rounded-lg p-6">
+            {/* Complementos Disponibles */}
+            <div className="mb-16">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Complementos Disponibles</h2>
+                <p className="text-xl text-gray-600">Mejora tu experiencia con contenido premium</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="bg-white rounded-xl p-6 text-center border border-gray-200">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
                     <Gift className="w-6 h-6 text-blue-600" />
                   </div>
-                  <h5 className="text-lg font-semibold mb-2">Ejercicios Premium</h5>
-                  <p className="text-sm text-gray-600 mb-4">Experiencias guiadas especializadas</p>
-                  <div className="text-xl font-bold text-blue-600">1,99€ c/u</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Ejercicios Premium</h3>
+                  <p className="text-gray-600 text-lg mb-4">Técnicas avanzadas y experiencias guiadas especializadas</p>
+                  <div className="text-2xl font-bold text-blue-600 mb-2">1,99€</div>
+                  <p className="text-xs text-gray-500">por ejercicio</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-6">
+                
+                <div className="bg-white rounded-xl p-6 text-center border border-gray-200">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
                     <Lightbulb className="w-6 h-6 text-purple-600" />
                   </div>
-                  <h5 className="text-lg font-semibold mb-2">Modo Filosófico</h5>
-                  <p className="text-sm text-gray-600 mb-4">Perspectiva más profunda y reflexiva</p>
-                  <div className="text-xl font-bold text-blue-600">0,99€</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Modo Filosófico</h3>
+                  <p className="text-gray-600 text-lg mb-4">Perspectiva más profunda y reflexiva para tus inquietudes</p>
+                  <div className="text-2xl font-bold text-purple-600 mb-2">0,99€</div>
+                  <p className="text-xs text-gray-500">compra única</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-6">
+                
+                <div className="bg-white rounded-xl p-6 text-center border border-gray-200">
                   <div className="w-12 h-12 bg-amber-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
                     <Sparkles className="w-6 h-6 text-amber-600" />
                   </div>
-                  <h5 className="text-lg font-semibold mb-2">Modo Espiritual</h5>
-                  <p className="text-sm text-gray-600 mb-4">Enfoque más espiritual y trascendente</p>
-                  <div className="text-xl font-bold text-blue-600">0,99€</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Modo Espiritual</h3>
+                  <p className="text-gray-600 text-lg mb-4">Enfoque espiritual y trascendente para tu crecimiento personal</p>
+                  <div className="text-2xl font-bold text-amber-600 mb-2">0,99€</div>
+                  <p className="text-xs text-gray-500">compra única</p>
                 </div>
               </div>
             </div>
 
             {/* Ver precios detallados */}
-            <div className="text-center mt-12">
+            <div className="text-center mb-16">
               <Link href="/pricing" className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
                 <span>Ver Precios Detallados</span>
               </Link>
             </div>
 
             {/* Payment Methods */}
-            <div className="mt-16 text-center bg-gray-50 rounded-xl p-8">
+            <div className="text-center bg-gray-50 rounded-xl p-8 mb-16">
               <h4 className="text-xl font-bold text-gray-900 mb-6">Métodos de Pago Seguros</h4>
-              <div className="flex justify-center items-center space-x-8 flex-wrap gap-4">
+              <div className="flex justify-center items-center space-x-8 flex-wrap gap-4 mb-6">
                 <div className="flex items-center space-x-2">
                   <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
                     <span className="text-white text-xs font-bold">S</span>
@@ -572,10 +651,20 @@ export default function Home() {
                   <span className="text-sm font-medium">PayPal</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mt-4">
-                💡 <strong>Nota:</strong> El 70% de las personas no buscan ayuda hasta que la necesitan.<br />
-                Prueba gratis y descubre cómo MENTALIA puede acompañarte.
-              </p>
+              
+              <div className="bg-blue-50 rounded-xl p-6 text-left max-w-2xl mx-auto">
+                <div className="flex items-start space-x-3">
+                  <Brain className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">Nota Psicológica</h3>
+                    <p className="text-gray-700 text-lg">
+                      El 70% de las personas no buscan ayuda hasta que realmente la necesitan. 
+                      Por eso ofrecemos una experiencia gratuita que genera conexión emocional real, 
+                      multiplicando las conversiones cuando surge la necesidad genuina.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
