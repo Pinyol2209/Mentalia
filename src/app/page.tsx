@@ -224,7 +224,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Left content */}
               <div className="text-center lg:text-left">
-                <h2 className="text-6xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+                <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
                   Cuida tu bienestar emocional,<br />
                   MENTALIA es tu apoyo<br />
                   las 24 horas
