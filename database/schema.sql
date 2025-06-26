@@ -23,7 +23,7 @@ CREATE TABLE users (
     subscription_start_date TIMESTAMP WITH TIME ZONE,
     subscription_end_date TIMESTAMP WITH TIME ZONE,
     ai_personality ai_personality DEFAULT 'empático' NOT NULL,
-    timezone VARCHAR(50) DEFAULT 'Europe/Madrid' NOT NULL,
+    timezone VARCHAR(50) DEFAULT 'Europe/Madrid' NOT NULL,  
     language VARCHAR(10) DEFAULT 'es' NOT NULL,
     onboarding_completed BOOLEAN DEFAULT FALSE,
     last_active_at TIMESTAMP WITH TIME ZONE,

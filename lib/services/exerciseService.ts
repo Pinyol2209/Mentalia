@@ -96,10 +96,13 @@ export class ExerciseService {
   static async updateExerciseProgress(
     userExerciseId: string,
     progressPercentage: number,
-    sessionData?: any
+    sessionData?: Record<string, unknown>
   ): Promise<boolean> {
     try {
-      const updateData: any = {
+      const updateData: Partial<{
+        progress_percentage: number
+        session_data: string
+      }> = {
         progress_percentage: Math.min(100, Math.max(0, progressPercentage))
       }
 
@@ -131,7 +134,12 @@ export class ExerciseService {
     }
   ): Promise<boolean> {
     try {
-      const updateData: any = {
+      const updateData: Partial<{
+        completed_at: string
+        progress_percentage: number
+        rating: number
+        notes: string
+      }> = {
         completed_at: new Date().toISOString(),
         progress_percentage: 100
       }
@@ -254,11 +262,8 @@ export class ExerciseService {
         )
       })
 
-      // Obtener categoría y dificultad preferidas
+      // Obtener categoría preferida
       const preferredCategory = Array.from(categoryCount.entries())
-        .sort((a, b) => b[1] - a[1])[0]?.[0]
-      
-      const preferredDifficulty = Array.from(difficultyCount.entries())
         .sort((a, b) => b[1] - a[1])[0]?.[0]
 
       // Obtener ejercicios recomendados

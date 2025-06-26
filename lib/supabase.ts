@@ -82,10 +82,10 @@ export interface Report {
   report_type: 'weekly' | 'monthly'
   period_start: string
   period_end: string
-  emotional_summary: any // JSON object
+  emotional_summary: Record<string, unknown> // JSON object
   exercises_completed: number
   conversations_count: number
-  mood_trends: any // JSON object
+  mood_trends: Record<string, unknown> // JSON object
   pdf_url?: string
   generated_at: string
 }

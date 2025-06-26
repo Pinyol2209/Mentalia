@@ -1,5 +1,5 @@
 import { supabase } from '../supabase'
-import type { Conversation, User } from '../supabase'
+import type { Conversation } from '../supabase'
 import { v4 as uuidv4 } from 'uuid'
 
 export class ConversationService {
