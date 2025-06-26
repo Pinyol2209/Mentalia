@@ -232,32 +232,37 @@ export class ExerciseService {
     limit = 5
   ): Promise<Exercise[]> {
     try {
-      // Obtener categorías más usadas por el usuario
-      const { data: userHistory } = await supabase
+      // Obtener IDs de ejercicios completados por el usuario
+      const { data: userExercises } = await supabase
         .from('user_exercises')
-        .select(`
-          exercise:exercises(category, difficulty_level)
-        `)
+        .select('exercise_id')
         .eq('user_id', userId)
         .not('completed_at', 'is', null)
 
-      if (!userHistory || userHistory.length === 0) {
+      if (!userExercises || userExercises.length === 0) {
         // Si no hay historial, devolver ejercicios básicos populares
+        return this.getAvailableExercises(undefined, 'básico')
+      }
+
+      // Obtener datos completos de los ejercicios
+      const exerciseIds = userExercises.map(ue => ue.exercise_id)
+      const { data: exercises } = await supabase
+        .from('exercises')
+        .select('category, difficulty_level')
+        .in('id', exerciseIds)
+
+      if (!exercises || exercises.length === 0) {
         return this.getAvailableExercises(undefined, 'básico')
       }
 
       // Analizar preferencias del usuario
       const categoryCount = new Map<string, number>()
 
-      userHistory.forEach(item => {
-        // Verificar que exercise existe y tiene las propiedades necesarias
-        if (item.exercise && typeof item.exercise === 'object' && 'category' in item.exercise) {
-          const exercise = item.exercise as { category: string; difficulty_level: string }
-          categoryCount.set(
-            exercise.category, 
-            (categoryCount.get(exercise.category) || 0) + 1
-          )
-        }
+      exercises.forEach(exercise => {
+        categoryCount.set(
+          exercise.category, 
+          (categoryCount.get(exercise.category) || 0) + 1
+        )
       })
 
       // Obtener categoría preferida
@@ -284,7 +289,7 @@ export class ExerciseService {
         return []
       }
 
-      return data
+      return data || []
     } catch (error) {
       console.error('Error in getRecommendedExercises:', error)
       return []
