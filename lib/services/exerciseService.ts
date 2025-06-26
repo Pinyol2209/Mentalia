@@ -444,12 +444,20 @@ export class ExerciseService {
   // Incrementar popularidad del ejercicio
   private static async incrementExercisePopularity(exerciseId: string): Promise<void> {
     try {
-      await supabase
+      // Obtener el valor actual de popularity_score
+      const { data: exercise } = await supabase
         .from('exercises')
-        .update({
-          popularity_score: supabase.sql`popularity_score + 1`
-        })
+        .select('popularity_score')
         .eq('id', exerciseId)
+        .single()
+
+      if (exercise) {
+        const newScore = (exercise.popularity_score || 0) + 1
+        await supabase
+          .from('exercises')
+          .update({ popularity_score: newScore })
+          .eq('id', exerciseId)
+      }
     } catch (error) {
       console.error('Error incrementing exercise popularity:', error)
     }
@@ -472,12 +480,10 @@ export class ExerciseService {
     totalMinutes: number
   }> {
     try {
+      // Obtener ejercicios del usuario
       const { data: userExercises } = await supabase
         .from('user_exercises')
-        .select(`
-          *,
-          exercise:exercises(category, duration_minutes)
-        `)
+        .select('*')
         .eq('user_id', userId)
 
       if (!userExercises || userExercises.length === 0) {
@@ -494,26 +500,35 @@ export class ExerciseService {
       const completed = userExercises.filter(ex => ex.completed_at)
       const ratings = completed.filter(ex => ex.rating).map(ex => ex.rating!)
       
+      // Obtener datos de ejercicios para categorías y duración
+      const exerciseIds = [...new Set(userExercises.map(ex => ex.exercise_id))]
+      const { data: exercises } = await supabase
+        .from('exercises')
+        .select('id, category, duration_minutes')
+        .in('id', exerciseIds)
+
+      const exerciseMap = new Map(exercises?.map(ex => [ex.id, ex]) || [])
+      
       // Calcular categoría favorita
       const categoryCount = new Map<string, number>()
+      let totalMinutes = 0
+
       completed.forEach(ex => {
-        const category = (ex.exercise as Exercise).category
-        categoryCount.set(category, (categoryCount.get(category) || 0) + 1)
+        const exercise = exerciseMap.get(ex.exercise_id)
+        if (exercise) {
+          categoryCount.set(exercise.category, (categoryCount.get(exercise.category) || 0) + 1)
+          totalMinutes += exercise.duration_minutes || 0
+        }
       })
 
       const favoriteCategory = categoryCount.size > 0
         ? Array.from(categoryCount.entries()).sort((a, b) => b[1] - a[1])[0][0]
         : null
 
-      // Calcular minutos totales
-      const totalMinutes = completed.reduce((sum, ex) => {
-        return sum + ((ex.exercise as Exercise).duration_minutes || 0)
-      }, 0)
-
       return {
         totalExercises: userExercises.length,
         completedExercises: completed.length,
-        completionRate: (completed.length / userExercises.length) * 100,
+        completionRate: userExercises.length > 0 ? (completed.length / userExercises.length) * 100 : 0,
         favoriteCategory,
         averageRating: ratings.length > 0 
           ? ratings.reduce((sum, r) => sum + r, 0) / ratings.length 
