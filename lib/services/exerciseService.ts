@@ -248,18 +248,16 @@ export class ExerciseService {
 
       // Analizar preferencias del usuario
       const categoryCount = new Map<string, number>()
-      const difficultyCount = new Map<string, number>()
 
       userHistory.forEach(item => {
-        const exercise = item.exercise as { category: string; difficulty_level: string }
-        categoryCount.set(
-          exercise.category, 
-          (categoryCount.get(exercise.category) || 0) + 1
-        )
-        difficultyCount.set(
-          exercise.difficulty_level,
-          (difficultyCount.get(exercise.difficulty_level) || 0) + 1
-        )
+        // Verificar que exercise existe y tiene las propiedades necesarias
+        if (item.exercise && typeof item.exercise === 'object' && 'category' in item.exercise) {
+          const exercise = item.exercise as { category: string; difficulty_level: string }
+          categoryCount.set(
+            exercise.category, 
+            (categoryCount.get(exercise.category) || 0) + 1
+          )
+        }
       })
 
       // Obtener categoría preferida
